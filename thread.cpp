@@ -7,11 +7,6 @@
 
 using namespace std;
 
-// const static int num_threads = 2;
-map<string, int> words; 
-
-mutex mtx; // Mutual exclusion
-
 void WordCount(int tid, int threads, string text, int chunkSize) {
   // cout << "I'm the thread --> " << tid << endl;
   if (tid == threads - 1) {
@@ -24,11 +19,11 @@ void WordCount(int tid, int threads, string text, int chunkSize) {
   // displayTokenList(tokens);
   cout << "_________" << endl;
 
-  for (int i = 0; i < tokens.size(); i++) {
-    mtx.lock();
-    words[tokens[i]]++;
-    mtx.unlock();
-  }
+  // for (int i = 0; i < tokens.size(); i++) {
+  //   mtx.lock();
+  //   words[tokens[i]]++;
+  //   mtx.unlock();
+  // }
 }
 
 int main(int argc, char *argv[]) {
@@ -36,17 +31,19 @@ int main(int argc, char *argv[]) {
   string text = readFile(argv[1]);
   int num_threads = stoi(argv[2]);
   int chunk = text.size() / num_threads;
+  vector<map<string, int>> words(num_threads); 
 
-  // threads
-  thread t[num_threads];
 
-  // Launch a group of threads
-  for (int i = 0; i < num_threads; ++i) { t[i] = thread(WordCount, i, num_threads, text, chunk); }
+  // // threads
+  // thread t[num_threads];
 
-  // Join the threads with the main thread
-  for (int i = 0; i < num_threads; ++i) { t[i].join(); }
+  // // Launch a group of threads
+  // for (int i = 0; i < num_threads; ++i) { t[i] = thread(WordCount, i, num_threads, text, chunk); }
 
-  displayHash(words);
+  // // Join the threads with the main thread
+  // for (int i = 0; i < num_threads; ++i) { t[i].join(); }
+
+  // displayHash(words);
 
   return 0;
 }

@@ -1,5 +1,8 @@
-# word-frequency
+# Word frequency V2.0
 Word Frequency Project-Client/Server
+
+## Features
+* One Hash table per thread
 
 ## Run
 ```bash
