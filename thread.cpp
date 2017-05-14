@@ -20,8 +20,9 @@ void WordCount(int tid, int threads, string text, int chunkSize) {
     text =  text.substr(chunkSize * tid, chunkSize);
   }
   vector<string> tokens = tokenizer(replaceChar(text));
+  cout << text << endl;
   // displayTokenList(tokens);
-  // cout << "_________" << endl;
+  cout << "_________" << endl;
 
   for (int i = 0; i < tokens.size(); i++) {
     mtx.lock();
